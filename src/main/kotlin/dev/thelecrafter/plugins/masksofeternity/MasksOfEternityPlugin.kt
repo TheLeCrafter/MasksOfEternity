@@ -43,7 +43,7 @@ class MasksOfEternityPlugin : JavaPlugin() {
 
     private fun initSchematics() {
         if (!dataFolder.exists()) {
-            dataFolder.createNewFile()
+            dataFolder.mkdir()
         }
         if (dataFolder.listFiles() != null) {
             for (file in dataFolder.listFiles()) {
