@@ -1,0 +1,7 @@
+package dev.thelecrafter.plugins.masksofeternity.gauntlet
+
+object GauntletSettings {
+
+    const val MAGIC_GAUNTLET = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Y4YTk1ZDkwMzJlOGFmZjQ4MDgyYjE1ZmIzNTcwOTMyZjgyM2QxOTliMzk5NDk0OGVhYmY3MTFmYmMifX19"
+
+}

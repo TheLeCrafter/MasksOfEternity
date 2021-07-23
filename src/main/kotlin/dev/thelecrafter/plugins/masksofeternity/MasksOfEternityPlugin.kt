@@ -4,8 +4,7 @@ import com.sk89q.worldedit.extent.clipboard.Clipboard
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats
 import org.bukkit.plugin.java.JavaPlugin
-import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
-import dev.thelecrafter.plugins.masksofeternity.commands.GetMaskCommand
+import dev.thelecrafter.plugins.masksofeternity.commands.MasksOfEternityItemCommand
 import dev.thelecrafter.plugins.masksofeternity.dungeon.Dungeon
 import dev.thelecrafter.plugins.masksofeternity.dungeon.DungeonRoom
 import dev.thelecrafter.plugins.masksofeternity.events.EventCollector
@@ -34,7 +33,7 @@ class MasksOfEternityPlugin : JavaPlugin() {
     }
 
     private fun registerAllCommands() {
-        registerSingleCommand("getmask", GetMaskCommand(), GetMaskCommand())
+        registerSingleCommand("getmask", MasksOfEternityItemCommand(), MasksOfEternityItemCommand())
     }
 
     private fun registerSingleCommand(command: String, commandExecutor: CommandExecutor, tabCompleter: TabCompleter) {

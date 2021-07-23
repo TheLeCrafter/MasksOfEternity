@@ -8,6 +8,5 @@ depend:
   - FastAsyncWorldEdit
   - BigCityManager
 commands:
-  getmask:
-    permission: masksofeternity.command.getmask
-
+  masksofeternityitem:
+    permission: masksofeternity.command.masksofeternityitem

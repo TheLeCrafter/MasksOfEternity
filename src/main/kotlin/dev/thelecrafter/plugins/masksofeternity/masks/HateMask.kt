@@ -2,6 +2,7 @@ package dev.thelecrafter.plugins.masksofeternity.masks
 
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
 import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
+import dev.thelecrafter.plugins.masksofeternity.util.ItemUtil
 import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
 import dev.thelecrafter.plugins.masksofeternity.util.UpdateUtils
 import net.kyori.adventure.text.Component
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -54,6 +56,11 @@ class HateMask: Listener {
                     }
                 }, 0, 20)
         }
+    }
+
+    @EventHandler
+    fun unplaceable(event: PlayerInteractEvent) {
+        ItemUtil.setUnplaceable(isHateMaskKey, event)
     }
 
     @EventHandler

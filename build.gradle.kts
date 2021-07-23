@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "dev.thelecrafter.plugins"
-version = "1.0.0-Pre1"
+version = "1.0.0-Pre2"
 
 repositories {
     mavenCentral()
