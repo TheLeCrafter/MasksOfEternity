@@ -30,12 +30,8 @@ dependencies {
 
 tasks.shadowJar {
     minimize()
-    dependsOn(tasks["relocateShadowJar"])
-}
-
-tasks.create<com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation>("relocateShadowJar") {
-    target = tasks["shadowJar"] as com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-    prefix = "masksofeternity"
+    relocate("org.jetbrains", "masksofeternity.org.jetbrains")
+    relocate("org.reflections", "masksofeternity.org.reflections")
 }
 
 tasks.processResources {
