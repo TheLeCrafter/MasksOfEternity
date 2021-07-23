@@ -1,0 +1,13 @@
+name: MasksOfEternity
+version: ${version}
+main: dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
+api-version: 1.17
+authors: [ TheLeCrafter ]
+description: Collect powerful masks and search for deep dungeons
+depend:
+  - FastAsyncWorldEdit
+  - BigCityManager
+commands:
+  getmask:
+    permission: masksofeternity.command.getmask
+
