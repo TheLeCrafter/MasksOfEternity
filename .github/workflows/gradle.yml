@@ -30,16 +30,5 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew shadowJar
-    - name: Create worflow pre release
-      uses: ncipollo/release-action@v1.8.6
-      with:
-        artifacts: "build/libs/*.jar"
-        token: ${{ secrets.GITHUB_TOKEN }}
-        allowUpdates: true
-        artifactErrorsFailBuild: false
-        draft: true
-        prerelease: true
-        release_name: "Workflow Auto Pre Release"
-        tag_name: ${{ github.ref }}
         
         
