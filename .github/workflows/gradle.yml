@@ -17,6 +17,9 @@ jobs:
       with:
         java-version: '16'
         distribution: 'adopt'
+        architecture: x64
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
     - name: Cache Gradle packages
       uses: actions/cache@v2.1.6
       with:
@@ -27,7 +30,16 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew shadowJar
-    - name: Test the builded plugin with a paper server
-      uses: jaoafa/CheckPluginEnabling@v1.3
+    - name: Create worflow pre release
+      uses: ncipollo/release-action@v1.8.6
       with:
-        plugin-name: MasksOfEternity
+        artifacts: "build/libs/*.jar"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        allowUpdates: true
+        artifactErrorsFailBuild: false
+        draft: true
+        prerelease: true
+        release_name: "Workflow Auto Pre Release"
+        tag_name: ${{ github.ref }}
+        
+        
