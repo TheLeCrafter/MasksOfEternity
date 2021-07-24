@@ -27,3 +27,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew shadowJar
+    - name: Test the builded plugin with a paper server
+      uses: jaoafa/CheckPluginEnabling@v1.3
+      with:
+        plugin-name: MasksOfEternity
