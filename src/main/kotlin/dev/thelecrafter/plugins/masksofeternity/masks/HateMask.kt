@@ -30,8 +30,8 @@ class HateMask: Listener {
                     TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the hate to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("destroy your enemies").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the hate to").color(ComponentColors.GRAY.textColor),
+                Component.text("destroy your enemies").color(ComponentColors.GRAY.textColor),
             ))
             meta.persistentDataContainer.set(isHateMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta

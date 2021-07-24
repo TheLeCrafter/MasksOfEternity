@@ -33,8 +33,8 @@ class CourageMask: Listener {
             meta.displayName(Component.text("Mask of Courage").color(ComponentColors.RED.textColor).decoration(TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the courage to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("replace life with damage").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the courage to").color(ComponentColors.GRAY.textColor),
+                Component.text("replace life with damage").color(ComponentColors.GRAY.textColor),
             ))
             val modifiers: Multimap<Attribute, AttributeModifier> = ArrayListMultimap.create()
             modifiers.put(Attribute.GENERIC_MAX_HEALTH, AttributeModifier(UUID.randomUUID(), "health_decrease", -0.25, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD))

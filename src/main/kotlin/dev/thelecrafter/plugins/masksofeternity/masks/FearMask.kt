@@ -33,8 +33,8 @@ class FearMask: Listener {
                     TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the fear to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("dodge every attack").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the fear to").color(ComponentColors.GRAY.textColor),
+                Component.text("dodge every attack").color(ComponentColors.GRAY.textColor),
             ))
             meta.persistentDataContainer.set(isFearMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta

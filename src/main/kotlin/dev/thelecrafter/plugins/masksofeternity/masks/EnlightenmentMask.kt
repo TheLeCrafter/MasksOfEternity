@@ -34,8 +34,8 @@ class EnlightenmentMask: Listener {
                     TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the enlightenment to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("see every ore in one chunk").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the enlightenment to").color(ComponentColors.GRAY.textColor),
+                Component.text("see every ore in one chunk").color(ComponentColors.GRAY.textColor),
             ))
             meta.persistentDataContainer.set(isEnlightenmentMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta

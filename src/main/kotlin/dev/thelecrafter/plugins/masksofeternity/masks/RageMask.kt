@@ -35,8 +35,8 @@ class RageMask: Listener {
             meta.displayName(Component.text("Mask of Rage").color(ComponentColors.GREEN.textColor).decoration(TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the raging power if").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("you are wounded").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false)
+                Component.text("Gain the raging power if").color(ComponentColors.GRAY.textColor),
+                Component.text("you are wounded").color(ComponentColors.GRAY.textColor)
             ))
             meta.persistentDataContainer.set(isRageMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta

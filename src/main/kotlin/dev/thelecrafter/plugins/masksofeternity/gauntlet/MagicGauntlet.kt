@@ -25,12 +25,12 @@ class MagicGauntlet: Listener {
             val item: ItemStack = PlayerHeadUtil.getCustomTextureHead(GauntletSettings.MAGIC_GAUNTLET)
             val meta: ItemMeta = item.itemMeta
             meta.displayName(
-                Component.text("Magical Gauntlet").color(ComponentColors.GOLD.textColor).decoration(TextDecoration.ITALIC, false).decorate(TextDecoration.BOLD))
+                Component.text("Magical Gauntlet").color(ComponentColors.GOLD.textColor).decoration(TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Harness the power of the four").color(ComponentColors.GOLD.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("almighty gemstones to gain").color(ComponentColors.GOLD.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("unlimited power").color(ComponentColors.GOLD.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Harness the power of the four").color(ComponentColors.GOLD.textColor),
+                Component.text("almighty gemstones to gain").color(ComponentColors.GOLD.textColor),
+                Component.text("unlimited power").color(ComponentColors.GOLD.textColor),
                 Component.empty(),
                 Component.text("Placed gemstones").color(ComponentColors.DARK_GRAY.textColor).decoration(TextDecoration.ITALIC, false)
             ))
