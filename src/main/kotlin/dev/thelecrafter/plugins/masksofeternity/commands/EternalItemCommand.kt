@@ -26,7 +26,7 @@ class EternalItemCommand: CommandExecutor, TabCompleter {
                         else -> sender.sendMessage(Settings.PREFIX.append(Component.text(" This mask either doesn't exist or isn't currently implemented.").color(ComponentColors.RED.textColor)))
                     }
                     "gauntlet" -> when(args[1]) {
-                        "magic_gauntlet" -> sender.inventory.addItem(MagicGauntlet.asHandheldItem())
+                        "magic_gauntlet" -> sender.inventory.addItem(MagicGauntlet.asHandheldItem(mutableListOf()))
                         else -> sender.sendMessage(Settings.PREFIX.append(Component.text(" This gauntlet item either doesn't exist or isn't currently implemented.").color(ComponentColors.RED.textColor)))
                     }
                 }

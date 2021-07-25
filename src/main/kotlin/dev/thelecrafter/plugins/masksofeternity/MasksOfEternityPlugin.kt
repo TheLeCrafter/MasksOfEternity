@@ -5,17 +5,11 @@ import dev.thelecrafter.plugins.masksofeternity.dungeon.Dungeon
 import dev.thelecrafter.plugins.masksofeternity.dungeon.DungeonRoom
 import dev.thelecrafter.plugins.masksofeternity.events.EventCollector
 import dev.thelecrafter.plugins.masksofeternity.masks.HateMask
-import org.apache.commons.io.FileUtils
 import org.bukkit.World
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabCompleter
 import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
-import java.io.*
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.StandardCopyOption
 
 class MasksOfEternityPlugin : JavaPlugin() {
 
@@ -43,6 +37,13 @@ class MasksOfEternityPlugin : JavaPlugin() {
     }
 
     private fun initSchematics() {
+        if(!dataFolder.exists()) {
+            dataFolder.mkdir()
+        }
+        dataFolder.listFiles().forEach {
+            file -> file.delete()
+        }
+        
         // Coming soon
         /*for (file in schematicDirectory.listFiles()) {
             if (file.endsWith(".schem")) {

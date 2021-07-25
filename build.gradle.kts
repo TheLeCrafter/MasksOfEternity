@@ -26,6 +26,7 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-47") { isTransitive = false }
     compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-47")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r")
 }
 
 tasks.shadowJar {

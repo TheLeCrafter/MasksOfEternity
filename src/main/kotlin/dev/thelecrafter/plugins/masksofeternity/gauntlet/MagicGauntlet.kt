@@ -20,8 +20,9 @@ class MagicGauntlet: Listener {
 
     companion object {
         private val isGauntletKey: NamespacedKey = NamespacedKey(MasksOfEternityPlugin.getInstance, "isGauntletMask")
+        private val getGauntletStones: NamespacedKey = NamespacedKey(MasksOfEternityPlugin.getInstance, "placed_gauntlet_stones")
 
-        fun asHandheldItem(): ItemStack {
+        fun asHandheldItem(placedGemStones: MutableList<GauntletStones>): ItemStack {
             val item: ItemStack = PlayerHeadUtil.getCustomTextureHead(GauntletSettings.MAGIC_GAUNTLET)
             val meta: ItemMeta = item.itemMeta
             meta.displayName(
@@ -34,6 +35,11 @@ class MagicGauntlet: Listener {
                 Component.empty(),
                 Component.text("Placed gemstones").color(ComponentColors.DARK_GRAY.textColor).decoration(TextDecoration.ITALIC, false)
             ))
+            var placedGauntletStonesString = ""
+            for (stone in placedGemStones) {
+                placedGauntletStonesString += "$stone\n"
+            }
+            meta.persistentDataContainer.set(getGauntletStones, PersistentDataType.STRING, placedGauntletStonesString)
             meta.persistentDataContainer.set(isGauntletKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta
             return item
@@ -47,6 +53,18 @@ class MagicGauntlet: Listener {
 
     @EventHandler
     fun updateItem(event: PlayerJoinEvent) {
-        UpdateUtils.updateItem(event.player, isGauntletKey, asHandheldItem().itemMeta)
+        for (item in event.player.inventory.contents) {
+            if (item != null) {
+                if (item.hasItemMeta()) {
+                    if (item.itemMeta.persistentDataContainer.has(isGauntletKey, PersistentDataType.STRING)) {
+                        val stones: MutableList<GauntletStones> = mutableListOf()
+                        for (stone in item.itemMeta.persistentDataContainer.get(getGauntletStones, PersistentDataType.STRING)!!.split("\n")) {
+                            stones.add(GauntletStones.valueOf(stone))
+                        }
+                        // TODO
+                    }
+                }
+            }
+        }
     }
 }
