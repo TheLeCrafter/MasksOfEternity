@@ -1,5 +1,6 @@
 package dev.thelecrafter.plugins.masksofeternity.commands
 
+import dev.thelecrafter.plugins.masksofeternity.gauntlet.GauntletStones
 import dev.thelecrafter.plugins.masksofeternity.gauntlet.MagicGauntlet
 import dev.thelecrafter.plugins.masksofeternity.masks.*
 import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
@@ -38,7 +39,7 @@ class EternalItemCommand: CommandExecutor, TabCompleter {
     override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<out String>): MutableList<String>? {
         val tabComplete: MutableList<String> = mutableListOf()
         val firstTabCompletion: List<String> = listOf("mask", "gauntlet")
-        var secondTabCompletion: MutableList<String> = mutableListOf()
+        var secondTabCompletion: MutableList<String>
 
         if (args.size == 1) {
             for (completion in firstTabCompletion) {

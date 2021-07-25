@@ -15,7 +15,7 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://oss.sonatype.org/content/repositories/central")
-    maven("https://mvn.intellectualsites.com/content/groups/public/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
@@ -24,9 +24,10 @@ dependencies {
     implementation("org.reflections:reflections:0.9.11")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation(kotlin("stdlib-jdk8"))
-    compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-47") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-47")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.12.0.202106070339-r")
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT")
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 }
 
 tasks.shadowJar {
