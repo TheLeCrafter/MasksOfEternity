@@ -1,18 +1,22 @@
 package dev.thelecrafter.plugins.masksofeternity.gauntlet
 
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
-import dev.thelecrafter.plugins.masksofeternity.util.*
+import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
+import dev.thelecrafter.plugins.masksofeternity.util.ItemUtil
+import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
-import org.bukkit.Bukkit
-import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.inventory.InventoryType
+import org.bukkit.event.inventory.PrepareSmithingEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.SmithingInventory
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 
@@ -35,7 +39,6 @@ class MagicGauntlet: Listener {
                 Component.empty(),
                 Component.text("Left click").color(ComponentColors.YELLOW.textColor).append(Component.text(" to use a ").color(ComponentColors.GRAY.textColor).append(Component.text("gemstone ability").color(ComponentColors.GOLD.textColor))),
                 Component.text("Right click").color(ComponentColors.YELLOW.textColor).append(Component.text(" to switch ").color(ComponentColors.GRAY.textColor).append(Component.text("the ").color(ComponentColors.GRAY.textColor).append(Component.text("gemstone ability").color(ComponentColors.GOLD.textColor)))),
-                Component.text("Shift right click").color(ComponentColors.YELLOW.textColor).append(Component.text(" to insert ").color(ComponentColors.GRAY.textColor).append(Component.text("gemstones").color(ComponentColors.GOLD.textColor))),
                 Component.empty(),
                 Component.text("Placed gemstones").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false))
             if (placedGemStones.size == 0) lore.add(Component.text("None").color(ComponentColors.DARK_GRAY.textColor).decoration(TextDecoration.ITALIC, false))
@@ -52,34 +55,6 @@ class MagicGauntlet: Listener {
             meta.persistentDataContainer.set(isGauntletKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta
             return item
-        }
-
-        fun gemstoneInventory(gemstones: List<GauntletStones>): Inventory {
-            val inventory: Inventory = Bukkit.createInventory(null, 27, Component.text("Gemstone "))
-            val placeholderItems: List<ItemStack> = listOf(PlaceholderItems.getItem(Material.RED_STAINED_GLASS_PANE), PlaceholderItems.getItem(Material.YELLOW_STAINED_GLASS_PANE), PlaceholderItems.getItem(Material.GREEN_STAINED_GLASS_PANE), PlaceholderItems.getItem(Material.BLUE_STAINED_GLASS_PANE))
-            var index = 0
-            for (slot in 0..26) {
-                inventory.setItem(slot, placeholderItems[index])
-                index++
-                if (index > placeholderItems.size) index = 0
-            }
-            inventory.setItem(10, null)
-            inventory.setItem(12, null)
-            inventory.setItem(14, null)
-            inventory.setItem(16, null)
-            if (gemstones.contains(GauntletStones.RED_GEMSTONE)) {
-                // Add red gemstone
-            }
-            if (gemstones.contains(GauntletStones.YELLOW_GEMSTONE)) {
-                // Add yellow gemstone
-            }
-            if (gemstones.contains(GauntletStones.GREEN_GEMSTONE)) {
-                // Add green gemstone
-            }
-            if (gemstones.contains(GauntletStones.BLUE_GEMSTONE)) {
-                // Add blue gemstone
-            }
-            return inventory
         }
     }
 
@@ -101,6 +76,56 @@ class MagicGauntlet: Listener {
                             }
                         }
                         item.itemMeta = asHandheldItem(stones).itemMeta
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    fun addSmithingRecipes(event: PrepareSmithingEvent) {
+        if (event.inventory.inputEquipment != null) {
+            if (event.inventory.inputEquipment!!.hasItemMeta()) {
+                if (event.inventory.inputEquipment!!.itemMeta.persistentDataContainer.has(isGauntletKey, PersistentDataType.STRING)) {
+                    if (event.inventory.inputMineral != null) {
+                        if (event.inventory.inputMineral!!.hasItemMeta()) {
+                            if (event.inventory.inputMineral!!.itemMeta.persistentDataContainer.has(BaseGauntletStone.isGauntletStone, PersistentDataType.STRING)) {
+                                val gauntletItem: ItemStack = event.inventory.inputEquipment!!
+                                val gemstoneItem: ItemStack = event.inventory.inputMineral!!
+                                val gemstone: GauntletStones = GauntletStones.valueOf(gemstoneItem.itemMeta.persistentDataContainer.get(BaseGauntletStone.isGauntletStone, PersistentDataType.STRING)!!)!!
+                                val stones: MutableList<GauntletStones> = mutableListOf()
+                                for (stone in gauntletItem.itemMeta.persistentDataContainer.get(getGauntletStones, PersistentDataType.STRING)!!.split("\n")) {
+                                    if (stone != "") {
+                                        stones.add(GauntletStones.valueOf(stone))
+                                    }
+                                }
+                                if (!stones.contains(gemstone)) {
+                                    stones.add(gemstone)
+                                    event.result = asHandheldItem(stones)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    fun grantItem(event: InventoryClickEvent) {
+        if (event.inventory.type == InventoryType.SMITHING) {
+            val smithingInventory: SmithingInventory = event.inventory as SmithingInventory
+            if (smithingInventory.result != null) {
+                if (smithingInventory.result!!.hasItemMeta()) {
+                    if (smithingInventory.result!!.itemMeta.persistentDataContainer.has(isGauntletKey, PersistentDataType.STRING)) {
+                        if (event.currentItem != null) {
+                            if (event.currentItem == smithingInventory.result) {
+                                event.cursor = smithingInventory.result
+                                smithingInventory.inputEquipment = null
+                                smithingInventory.inputMineral = null
+                                smithingInventory.result = null
+                            }
+                        }
                     }
                 }
             }

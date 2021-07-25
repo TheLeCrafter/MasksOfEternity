@@ -1,5 +1,6 @@
 package dev.thelecrafter.plugins.masksofeternity.commands
 
+import dev.thelecrafter.plugins.masksofeternity.gauntlet.BaseGauntletStone
 import dev.thelecrafter.plugins.masksofeternity.gauntlet.GauntletStones
 import dev.thelecrafter.plugins.masksofeternity.gauntlet.MagicGauntlet
 import dev.thelecrafter.plugins.masksofeternity.masks.*
@@ -28,6 +29,10 @@ class EternalItemCommand: CommandExecutor, TabCompleter {
                     }
                     "gauntlet" -> when(args[1]) {
                         "magic_gauntlet" -> sender.inventory.addItem(MagicGauntlet.asHandheldItem(mutableListOf()))
+                        "red_stone" -> sender.inventory.addItem(BaseGauntletStone.asHandheldItem(GauntletStones.RED_GEMSTONE))
+                        "yellow_stone" -> sender.inventory.addItem(BaseGauntletStone.asHandheldItem(GauntletStones.YELLOW_GEMSTONE))
+                        "green_stone" -> sender.inventory.addItem(BaseGauntletStone.asHandheldItem(GauntletStones.GREEN_GEMSTONE))
+                        "blue_stone" -> sender.inventory.addItem(BaseGauntletStone.asHandheldItem(GauntletStones.BLUE_GEMSTONE))
                         else -> sender.sendMessage(Settings.PREFIX.append(Component.text(" This gauntlet item either doesn't exist or isn't currently implemented.").color(ComponentColors.RED.textColor)))
                     }
                 }
@@ -54,7 +59,7 @@ class EternalItemCommand: CommandExecutor, TabCompleter {
                     if (completion.contains(args[1])) tabComplete.add(completion)
                 }
             } else if (args[0] == "gauntlet") {
-                secondTabCompletion = mutableListOf("magic_gauntlet")
+                secondTabCompletion = mutableListOf("magic_gauntlet", "red_stone", "yellow_stone", "green_stone", "blue_stone")
                 for (completion in secondTabCompletion) {
                     if (completion.contains(args[1])) tabComplete.add(completion)
                 }
