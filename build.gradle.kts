@@ -32,8 +32,8 @@ dependencies {
 
 tasks.shadowJar {
     minimize()
-    relocate("org.jetbrains", "masksofeternity.org.jetbrains")
-    relocate("org.reflections", "masksofeternity.org.reflections")
+    relocate("org.jetbrains", "$group.org.jetbrains")
+    relocate("org.reflections", "$group.org.reflections")
 }
 
 tasks.processResources {

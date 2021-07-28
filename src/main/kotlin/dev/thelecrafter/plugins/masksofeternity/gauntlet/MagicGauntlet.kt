@@ -37,11 +37,13 @@ class MagicGauntlet: Listener {
                 Component.text("four almighty gemstones").color(ComponentColors.GOLD.textColor),
                 Component.text("to gain unlimited power").color(ComponentColors.GOLD.textColor),
                 Component.empty(),
-                Component.text("Left click").color(ComponentColors.YELLOW.textColor).append(Component.text(" to use a ").color(ComponentColors.GRAY.textColor).append(Component.text("gemstone ability").color(ComponentColors.GOLD.textColor))),
-                Component.text("Right click").color(ComponentColors.YELLOW.textColor).append(Component.text(" to switch ").color(ComponentColors.GRAY.textColor).append(Component.text("the ").color(ComponentColors.GRAY.textColor).append(Component.text("gemstone ability").color(ComponentColors.GOLD.textColor)))),
+                Component.text("Gemstone abilities apply on hits").color(ComponentColors.YELLOW.textColor),
                 Component.empty(),
                 Component.text("Placed gemstones").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false))
-            if (placedGemStones.size == 0) lore.add(Component.text("None").color(ComponentColors.DARK_GRAY.textColor).decoration(TextDecoration.ITALIC, false))
+            if (placedGemStones.size == 0) {
+                lore.add(Component.text("None").color(ComponentColors.DARK_GRAY.textColor).decoration(TextDecoration.ITALIC, false))
+                lore.add(Component.text("Apply gemstones in a smithing table").color(ComponentColors.DARK_GRAY.textColor))
+            }
             if (placedGemStones.contains(GauntletStones.RED_GEMSTONE)) lore.add(Component.text("Red Gemstone").color(ComponentColors.RED.textColor).decoration(TextDecoration.ITALIC, false))
             if (placedGemStones.contains(GauntletStones.YELLOW_GEMSTONE)) lore.add(Component.text("Yellow Gemstone").color(ComponentColors.YELLOW.textColor).decoration(TextDecoration.ITALIC, false))
             if (placedGemStones.contains(GauntletStones.GREEN_GEMSTONE)) lore.add(Component.text("Green Gemstone").color(ComponentColors.GREEN.textColor).decoration(TextDecoration.ITALIC, false))
@@ -92,7 +94,7 @@ class MagicGauntlet: Listener {
                             if (event.inventory.inputMineral!!.itemMeta.persistentDataContainer.has(BaseGauntletStone.isGauntletStone, PersistentDataType.STRING)) {
                                 val gauntletItem: ItemStack = event.inventory.inputEquipment!!
                                 val gemstoneItem: ItemStack = event.inventory.inputMineral!!
-                                val gemstone: GauntletStones = GauntletStones.valueOf(gemstoneItem.itemMeta.persistentDataContainer.get(BaseGauntletStone.isGauntletStone, PersistentDataType.STRING)!!)!!
+                                val gemstone: GauntletStones = GauntletStones.valueOf(gemstoneItem.itemMeta.persistentDataContainer.get(BaseGauntletStone.isGauntletStone, PersistentDataType.STRING)!!)
                                 val stones: MutableList<GauntletStones> = mutableListOf()
                                 for (stone in gauntletItem.itemMeta.persistentDataContainer.get(getGauntletStones, PersistentDataType.STRING)!!.split("\n")) {
                                     if (stone != "") {
