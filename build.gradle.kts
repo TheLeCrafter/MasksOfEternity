@@ -20,12 +20,12 @@ repositories {
 
 dependencies {
     api("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
-    compileOnly("com.mojang:authlib:1.5.25")
+    api("com.mojang:authlib:1.5.25")
     implementation("org.reflections:reflections:0.9.11")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation(kotlin("stdlib-jdk8"))
-    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT")
-    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
+    api("com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT")
+    api("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
     implementation("commons-io:commons-io:2.11.0")
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 }
