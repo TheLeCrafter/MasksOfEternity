@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
+    api("io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT")
     compileOnly("com.mojang:authlib:1.5.25")
     implementation("org.reflections:reflections:0.9.11")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
