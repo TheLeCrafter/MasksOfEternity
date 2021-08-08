@@ -7,15 +7,15 @@ plugins {
 }
 
 group = "dev.thelecrafter.plugins"
-version = "1.0.0-Pre1"
+version = "1.0.0-Pre2"
 
 repositories {
     mavenCentral()
     maven("https://libraries.minecraft.net")
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://oss.sonatype.org/content/repositories/central")
-    maven("https://mvn.intellectualsites.com/content/groups/public/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
@@ -24,18 +24,16 @@ dependencies {
     implementation("org.reflections:reflections:0.9.11")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
     implementation(kotlin("stdlib-jdk8"))
-    compileOnly("com.fastasyncworldedit:FAWE-Bukkit:1.17-47") { isTransitive = false }
-    compileOnly("com.fastasyncworldedit:FAWE-Core:1.17-47")
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.0-SNAPSHOT")
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.0-SNAPSHOT")
+    implementation("commons-io:commons-io:2.11.0")
+    implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
 }
 
 tasks.shadowJar {
     minimize()
-    dependsOn(tasks["relocateShadowJar"])
-}
-
-tasks.create<com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation>("relocateShadowJar") {
-    target = tasks["shadowJar"] as com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-    prefix = "masksofeternity"
+    relocate("org.jetbrains", "$group.org.jetbrains")
+    relocate("org.reflections", "$group.org.reflections")
 }
 
 tasks.processResources {

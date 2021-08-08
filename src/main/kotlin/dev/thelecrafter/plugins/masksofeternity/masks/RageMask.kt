@@ -1,10 +1,7 @@
 package dev.thelecrafter.plugins.masksofeternity.masks
 
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
-import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
-import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
-import dev.thelecrafter.plugins.masksofeternity.util.Settings
-import dev.thelecrafter.plugins.masksofeternity.util.UpdateUtils
+import dev.thelecrafter.plugins.masksofeternity.util.*
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.NamespacedKey
@@ -16,6 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -37,8 +35,8 @@ class RageMask: Listener {
             meta.displayName(Component.text("Mask of Rage").color(ComponentColors.GREEN.textColor).decoration(TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the raging power if").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("you are wounded").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false)
+                Component.text("Gain the raging power if").color(ComponentColors.GRAY.textColor),
+                Component.text("you are wounded").color(ComponentColors.GRAY.textColor)
             ))
             meta.persistentDataContainer.set(isRageMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta
@@ -75,6 +73,11 @@ class RageMask: Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    fun unplaceable(event: PlayerInteractEvent) {
+        ItemUtil.setUnplaceable(isRageMaskKey, event)
     }
 
     @EventHandler

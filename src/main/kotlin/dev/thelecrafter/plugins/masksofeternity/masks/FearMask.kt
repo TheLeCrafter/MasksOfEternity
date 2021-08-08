@@ -2,6 +2,7 @@ package dev.thelecrafter.plugins.masksofeternity.masks
 
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
 import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
+import dev.thelecrafter.plugins.masksofeternity.util.ItemUtil
 import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
 import dev.thelecrafter.plugins.masksofeternity.util.UpdateUtils
 import net.kyori.adventure.text.Component
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -31,13 +33,18 @@ class FearMask: Listener {
                     TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the fear to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("dodge every attack").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the fear to").color(ComponentColors.GRAY.textColor),
+                Component.text("dodge every attack").color(ComponentColors.GRAY.textColor),
             ))
             meta.persistentDataContainer.set(isFearMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta
             return item
         }
+    }
+
+    @EventHandler
+    fun unplaceable(event: PlayerInteractEvent) {
+        ItemUtil.setUnplaceable(isFearMaskKey, event)
     }
 
     @EventHandler

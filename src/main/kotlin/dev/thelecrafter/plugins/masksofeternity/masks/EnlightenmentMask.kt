@@ -3,6 +3,7 @@ package dev.thelecrafter.plugins.masksofeternity.masks
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
 import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
+import dev.thelecrafter.plugins.masksofeternity.util.ItemUtil
 import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
 import dev.thelecrafter.plugins.masksofeternity.util.UpdateUtils
 import net.kyori.adventure.text.Component
@@ -33,8 +34,8 @@ class EnlightenmentMask: Listener {
                     TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the enlightenment to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("see every ore in one chunk").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the enlightenment to").color(ComponentColors.GRAY.textColor),
+                Component.text("see every ore in one chunk").color(ComponentColors.GRAY.textColor),
             ))
             meta.persistentDataContainer.set(isEnlightenmentMaskKey, PersistentDataType.STRING, "yeah")
             item.itemMeta = meta
@@ -106,14 +107,8 @@ class EnlightenmentMask: Listener {
     }
 
     @EventHandler
-    fun onRightClick(event: PlayerInteractEvent) {
-        if (event.player.inventory.helmet != null) {
-            if (event.player.inventory.helmet!!.hasItemMeta()) {
-                if (event.player.inventory.helmet!!.itemMeta.persistentDataContainer.has(isEnlightenmentMaskKey, PersistentDataType.STRING)) {
-                    event.isCancelled = true
-                }
-            }
-        }
+    fun unplaceable(event: PlayerInteractEvent) {
+        ItemUtil.setUnplaceable(isEnlightenmentMaskKey, event)
     }
 
     @EventHandler

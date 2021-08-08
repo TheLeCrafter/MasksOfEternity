@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Multimap
 import dev.thelecrafter.plugins.masksofeternity.MasksOfEternityPlugin
 import dev.thelecrafter.plugins.masksofeternity.util.ComponentColors
+import dev.thelecrafter.plugins.masksofeternity.util.ItemUtil
 import dev.thelecrafter.plugins.masksofeternity.util.PlayerHeadUtil
 import dev.thelecrafter.plugins.masksofeternity.util.UpdateUtils
 import net.kyori.adventure.text.Component
@@ -13,6 +14,7 @@ import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
@@ -31,8 +33,8 @@ class CourageMask: Listener {
             meta.displayName(Component.text("Mask of Courage").color(ComponentColors.RED.textColor).decoration(TextDecoration.ITALIC, false))
             meta.lore(listOf(
                 Component.empty(),
-                Component.text("Gain the courage to").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
-                Component.text("replace life with damage").color(ComponentColors.GRAY.textColor).decoration(TextDecoration.ITALIC, false),
+                Component.text("Gain the courage to").color(ComponentColors.GRAY.textColor),
+                Component.text("replace life with damage").color(ComponentColors.GRAY.textColor),
             ))
             val modifiers: Multimap<Attribute, AttributeModifier> = ArrayListMultimap.create()
             modifiers.put(Attribute.GENERIC_MAX_HEALTH, AttributeModifier(UUID.randomUUID(), "health_decrease", -0.25, AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HEAD))
@@ -42,6 +44,11 @@ class CourageMask: Listener {
             item.itemMeta = meta
             return item
         }
+    }
+
+    @EventHandler
+    fun unplaceable(event: PlayerInteractEvent) {
+        ItemUtil.setUnplaceable(isCourageMaskKey, event)
     }
 
     @EventHandler

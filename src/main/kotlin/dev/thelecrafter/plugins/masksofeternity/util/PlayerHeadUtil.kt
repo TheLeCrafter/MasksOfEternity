@@ -18,7 +18,7 @@ object PlayerHeadUtil {
         val meta = head.itemMeta as SkullMeta
         val profile = GameProfile(UUID.randomUUID(), "")
         profile.properties.put("textures", Property("textures", value))
-        var profileField: Field? = null
+        var profileField: Field?
         try {
             profileField = meta.javaClass.getDeclaredField("profile")
             profileField.isAccessible = true
