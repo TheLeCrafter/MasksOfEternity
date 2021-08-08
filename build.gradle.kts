@@ -12,7 +12,7 @@ version = "1.0.0-Pre2"
 repositories {
     mavenCentral()
     maven("https://libraries.minecraft.net")
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven("https://oss.sonatype.org/content/repositories/snapshots")
     maven("https://oss.sonatype.org/content/repositories/central")
     maven("https://maven.enginehub.org/repo/")
